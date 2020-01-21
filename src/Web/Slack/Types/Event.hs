@@ -27,6 +27,8 @@ import Data.Text (Text)
 import Prelude
 
 type Domain = Text
+type Title = Text
+type Subtitle = Text
 
 data Event where
   AccountsChanged :: Event
@@ -42,6 +44,7 @@ data Event where
   ChannelRename :: ChannelRenameInfo -> Event
   ChannelUnarchive :: ChannelId -> UserId -> Event
   CommandsChanged :: SlackTimeStamp -> Event
+  DesktopNotification :: ChannelId -> SlackTimeStamp -> URL -> Title -> Subtitle -> Text -> Event
   EmailDomainChange :: Domain -> SlackTimeStamp -> Event
   EmojiChanged :: SlackTimeStamp -> Event
   FileChange  :: FileChangeInfo -> Event
@@ -131,6 +134,9 @@ parseType o@(Object v) typ =
       "channel_rename"  -> ChannelRename <$> v .: "channel"
       "channel_unarchive" -> ChannelUnarchive <$> v .: "channel" <*> v .: "user"
       "commands_changed" -> CommandsChanged <$> v .: "event_ts"
+      "desktop_notification" -> DesktopNotification
+            <$> v .: "channel" <*> v .: "ts" <*> v .: "avatarImage"
+            <*> v .: "title" <*> v .: "subtitle" <*> v .: "content"
       "email_domain_changed" -> EmailDomainChange <$> v .: "email_domain" <*> v .: "event_ts"
       "emoji_changed" -> EmojiChanged <$> v .: "event_ts"
       "file_change"  -> FileChange <$> parseJSON o
