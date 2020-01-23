@@ -1,5 +1,5 @@
 Name:                slack-api
-Version:             0.12
+Version:             0.13
 Synopsis:            Bindings to the Slack RTM API.
 Description:         This library provides bindings to the <https://api.slack.com/rtm Slack Real Time Messaging API>.
                      Users should find it easy to program their own Slack bots using the functionality found in `Web.Slack`.
@@ -25,7 +25,7 @@ Tested-With:         GHC == 8.0.2, GHC == 8.2.2, GHC == 8.4.4, GHC == 8.6.5
 Cabal-version:       >=1.10
 source-repository head
     type: git
-    location: https://github.com/mpickering/slack-api.git
+    location: https://github.com/declension/slack-api.git
 
 flag build-examples
   description: Build example executables.
